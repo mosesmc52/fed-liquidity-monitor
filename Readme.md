@@ -18,3 +18,7 @@ init_db()
 ```bash
 poetry run uvicorn api:app --reload --port 8000
 ```
+
+
+
+https://markets.newyorkfed.org/static/docs/markets-api.html#/
