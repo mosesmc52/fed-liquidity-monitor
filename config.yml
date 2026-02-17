@@ -22,7 +22,7 @@ series:
       delta_7d_pct: 50
 
   - id: "repo_ops_total"
-    label: "Repo Operations Total"
+    label: "Total Repo Operations"
     fetch:
       dataset: "repo_reverse_repo"
       key: "REPO_TOTAL"
@@ -32,7 +32,7 @@ series:
       delta_7d_pct: 50
 
   - id: "sofr"
-    label: "SOFR"
+    label: "Secured Overnight Financing Rate (SOFR)"
     fetch:
       dataset: "reference_rates"
       key: "SOFR"
