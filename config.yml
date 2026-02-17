@@ -1,0 +1,70 @@
+app:
+  db_url: "sqlite:///nyfed_stress.sqlite"
+  timezone: "America/New_York"
+  lookback_days: 365
+  poll_mode: "daily"
+  base_url: "https://markets.newyorkfed.org/api"
+
+series:
+  # Supported dataset families in nyfed_client.py:
+  # - reference_rates -> /api/rates/...
+  # - repo_reverse_repo -> /api/rp/...
+  # - central_bank_liquidity_swaps -> /api/fxs/... (FX swaps)
+  # Set `key` to a NY Fed type/metric (e.g., SOFR, REPO_TOTAL).
+  - id: "usd_swaps_outstanding"
+    label: "USD Liquidity Swaps Outstanding"
+    fetch:
+      dataset: "central_bank_liquidity_swaps"
+      key: "USD_SWAPS_OUTSTANDING"
+    triggers:
+      z_abs: 2.5
+      pctile: 0.98
+      delta_7d_pct: 50
+
+  - id: "repo_ops_total"
+    label: "Repo Operations Total"
+    fetch:
+      dataset: "repo_reverse_repo"
+      key: "REPO_TOTAL"
+    triggers:
+      z_abs: 2.5
+      pctile: 0.98
+      delta_7d_pct: 50
+
+  - id: "sofr"
+    label: "SOFR"
+    fetch:
+      dataset: "reference_rates"
+      key: "SOFR"
+    triggers:
+      z_abs: 2.5
+      pctile: 0.98
+      delta_7d_pct: 5
+
+notify:
+  enabled: true
+  channels: ["console", "email"]   # optionally add "slack"
+
+  slack:
+    enabled: false
+    webhook_url: ""
+
+  email:
+    enabled: true
+    provider: "ses"
+    to_addrs:  ${TO_ADDRESSES}
+
+    ses:
+      region: "us-east-1"
+      access_key: "${SES_ACCESS_KEY}"   # or hardcode (not recommended)
+      secret_key: "${SES_SECRET_KEY}"
+      from_address: "${FROM_ADDRESS}"
+
+
+stress_score:
+  # weights for an overall score (0..100-ish)
+  weights:
+    z_component: 0.6
+    pctile_component: 0.2
+    delta_component: 0.2
+  alert_score: 70
