@@ -3830,4 +3830,4 @@ test = ["hypothesis", "packaging", "preliz (>=0.19)", "pytest", "pytest-cov", "s
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<3.13"
-content-hash = "0958c67a27869a9f0933a66288758b649b6f441638c89207b0da31bda38340f3"
+content-hash = "f366ed619e1866f51c20824786bd2ad786fb3f1b34a08746fec6920c8e632f71"
