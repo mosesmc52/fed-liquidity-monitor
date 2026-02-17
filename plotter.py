@@ -4,8 +4,11 @@ from __future__ import annotations
 import datetime as dt
 from typing import List, Tuple
 
-import matplotlib.pyplot as plt
+import matplotlib
 import numpy as np
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 
 
 def plot_series_with_bands(

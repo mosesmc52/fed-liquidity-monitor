@@ -13,3 +13,8 @@ poetry run python
 from database import ( init_db )
 init_db()
 ```
+
+
+```bash
+poetry run uvicorn api:app --reload --port 8000
+```
